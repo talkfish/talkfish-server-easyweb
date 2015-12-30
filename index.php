@@ -7,16 +7,16 @@ class Messageposter {
     * takes GET-Value for parameter m
     * reads current message amount from get/current.txt
     * creates a new file below get
-    * format is m_000.txt (3 digits)
-    * -> self cleaning ringbuffer with maximum 1000 files
-    * digits counting upwards and wrapping starting again at 1
+    * format is m_0000000.txt (7 digits)
+    * -> self cleaning ringbuffer with maximum $COUNT_BORDER files
+    * digits counting upwards and wrapping starting again at m_0000000.txt
     */
 
    var $LOCKING_TIMEOUT =  2;
    var $MAXLENGTH       = 163;
    var $COUNTER         = "get/current.txt";
-   var $COUNT_BORDER    = 193;
-   var $PAD_LENGTH      =  3;
+   var $COUNT_BORDER    = 1930000;
+   var $PAD_LENGTH      =  7;
 
 
    function shortSleep() {
