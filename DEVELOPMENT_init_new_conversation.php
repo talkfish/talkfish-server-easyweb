@@ -2,9 +2,9 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
 
-print("<p>Hello, world!</p>");
+print("<h1>talkfish conversation creator</h1>");
 
-print("<p>generating new instance</p>");
+print("<h2>generating new endpoint</h2>");
 
 
 function generateRandomName($endpoint_id_length) {
@@ -34,7 +34,7 @@ function generateRandomName($endpoint_id_length) {
 }
 
 $length = 1;
-$prefix = "test/";
+$prefix = "test2/";
 $max_try_counts = 5;
 
 
@@ -46,7 +46,7 @@ do {
    $endpoint_string_candidate = generateRandomName($length);
    $newpath = $prefix . $endpoint_string_candidate;
    if (!file_exists($newpath)) {
-      mkdir($newpath,0755);
+      mkdir($newpath,0775);
       $success = true;
 
       print("<p>"); 
@@ -61,6 +61,13 @@ if (!$success) {
    print("</p>"); 
 }
 
+print("<h2>copying template</h2>");
+copy("template/index.php", "$newpath/index.php");
+mkdir("$newpath/get",0775);
+copy("template/get/current.txt", "$newpath/get/current.txt");
+
+
+print("<h2>analyis</h2>");
 print("<p>possible number of different combinations: ");
 $combinations = pow(36,$length);
 print("</p>"); 
@@ -71,9 +78,11 @@ if ($dircontent) {
    $fillrate = 100 * $currentamount / $combinations;
    print("<p>currentcount: $currentamount -> fillrate: $fillrate</p>");
 }
-print("<hr>");
-print("<p>TODO: cp template to new instance</p>");
-print("<p>TODO: prevent multiple parallel executions by an exclusive lock</p>");
-print("<p>TODO: toplevel directories to group subdirs and prevent to many subdirectories</p>");
+
+
+print("<h2>TODO</h2>");
+print("<p>TODO - Prio A: cp template to new instance</p>");
+print("<p>TODO - Prio B: prevent multiple parallel executions by an exclusive lock</p>");
+print("<p>TODO - Prio C: toplevel directories to group subdirs and prevent to many subdirectories</p>");
 
 ?>
