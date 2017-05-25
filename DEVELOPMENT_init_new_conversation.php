@@ -12,7 +12,8 @@ class EndpointGenerator {
    //
 
 
-   var $LOCKING_TIMEOUT =  2;
+   var $LOCKING_TIMEOUT =  4;
+   var $WAIT_TIME_PER_TASK =  2;
    var $COUNTER         = "conversationcounter.txt";
    var $ENDPOINT_ID_LENGTH  = 5;
    var $ENDPOINT_PATH_PREFIX = "ealj/";
@@ -80,6 +81,8 @@ class EndpointGenerator {
             return false; 
          }
 
+         usleep($this->WAIT_TIME_PER_TASK*1000*1000);
+         
          // determine current message count and move forward
          $current = intval(fgets($handleToCounter));
          if ($current<0) { 
